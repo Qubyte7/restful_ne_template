@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SlotStatus {
+  INUSE
+  FREE
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum VehiclesessionStatus {
+  PARKING
+  OUT
+}
+
+model Client {
+  id              Int               @id @default(autoincrement())
+  username        String
+  email           String            @unique
+  password        String
+  role            Role
+  vehicle_details Vehicle_details[]
+  ParkingSession  ParkingSession[]
+
+  @@map("client")
+}
+
+model Vehicle_details {
+  id             Int              @id @default(autoincrement())
+  client         Client           @relation(fields: [client_Id], references: [id])
+  client_Id      Int              @map("owner_Id")
+  vehicle_plate  String           @unique
+  vehicle_type   String           @map("vehicle_Type")
+  ParkingSession ParkingSession[]
+
+  @@map("vehicle_details")
+}
+
+model ParkingSlot {
+  id              Int              @id @default(autoincrement())
+  slotNumber      Int
+  status          SlotStatus
+  parkingSessions ParkingSession[]
+
+  @@map("parking_slots")
+}
+
+model ParkingSession {
+  id                   Int                  @id @default(autoincrement())
+  vehichle             Vehicle_details      @relation(fields: [vehicle_number_plate], references: [vehicle_plate])
+  vehicle_number_plate String
+  parking_slot         ParkingSlot          @relation(fields: [parking_slot_id], references: [id])
+  parking_slot_id      Int
+  owner                Client               @relation(fields: [owner_email], references: [email])
+  owner_email          String
+  ower_name            String
+  entry_time           DateTime
+  exit_time            DateTime
+  status               VehiclesessionStatus @map("vehicle_status")
+}
