@@ -8,12 +8,13 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/context/AuthContext";
 
 //menu items
-const items = [
+const AdminItems = [
     {
         title: "Home",
         url: "/dashboard/parking-sessions",
@@ -21,28 +22,40 @@ const items = [
     },
     {
         title: "Vehicle Management",
-        url: "/dashboard/vehicle-management",
+        url: "/dashboard/admin-vehicle-management",
         icon: Inbox,
     },
 
-
-
+]
+const UserItems = [
+        {
+        title: "Vehicle Management",
+        url: "/dashboard/vehicle-management",
+        icon: Inbox,
+    },
 ]
 
 export function AppSidebar() {
+    const { logout, user } = useAuth();
+    const { isAdmin } = useAuth();
+
     const [activeButton, setActiveButton] = useState<string | null>(null);
 
     const handleItemClick = (title: string) => {
         setActiveButton(title);
     };
 
+    const items = isAdmin ? AdminItems : UserItems;
+
     return (
         <Sidebar>
             <SidebarContent className="justify-between">
+                 <span className="mr-4">Welcome, {user?.username} </span>
                 <SidebarGroup >
                     <SidebarGroupLabel>Car Parking Management</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
+                           
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}   >
                                     <SidebarMenuButton asChild onClick={() => handleItemClick(item.title)} isActive={activeButton === item.title}>
@@ -66,10 +79,8 @@ export function AppSidebar() {
                 <SidebarFooter>
                     <SidebarMenu>
                         <SidebarMenuItem>
-                            <SidebarMenuButton className="hover:text-red-500 hover:bg-red-200">
-                                <a href="/dashboard">
-                                    <span>Logout</span>
-                                </a>
+                            <SidebarMenuButton onClick={logout} className="hover:text-red-500 hover:bg-red-200">
+                                <p>Logout</p>
                             </SidebarMenuButton>
 
                         </SidebarMenuItem>

@@ -7,9 +7,18 @@ import parkingSessionRouter from "./Routes/parkingSession.routes";
 import parkingSlotRouter from "./Routes/parkingSlot.routes"; // Added missing import
 import {errorHandlerMiddleware, notFound} from "./Middlewares/errorHandler.middleware";
 import {swaggerUi, specs} from './config/swagger';
+import cors from 'cors'
 
 const app = Express();
 app.use(Express.json());
+
+//cors handlelin
+app.use(cors(
+    {
+        origin:"*",
+        credentials:true,
+    }
+))
 
 // SWAGGER
 app.use("/pms/api-docs", ...swaggerUi.serve, swaggerUi.setup(specs)); // Updated path for consistency
