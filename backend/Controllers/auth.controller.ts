@@ -3,6 +3,7 @@ import {comparePassword, hashPassword} from "../config/bycrypt";
 import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "../config/env";
 import {NextFunction, Request, Response} from "express";
+import { sendEmail } from "../config/mailer";
 import z from "zod"
 
 const ClientSchema =  z.object({
@@ -51,6 +52,7 @@ export const signUp = async (req: Request, res: Response, next: NextFunction) =>
             data: newUser,
             token: token
         })
+        await sendEmail({toEmail: email, name})
     } catch (e) {
         next(e);
     }
@@ -86,6 +88,7 @@ export const signIn = async (req: Request, res: Response, next: NextFunction) =>
                     data: user,
                     token: token
                 })
+                await sendEmail({toEmail: email})
             } else {
                 res.status(403).json({
                     success: true,
