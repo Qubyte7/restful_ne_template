@@ -1,7 +1,9 @@
 import {Router} from 'express'
-import {signIn,signUp} from "../Controllers/auth.controller";
+import {me, signIn,signUp} from "../Controllers/auth.controller";
+import { authorizeUser } from '../Middlewares/auth.middleware';
 
 const authRouter = Router();
+authRouter.get('/me',authorizeUser,me);
 
 /**
  * @swagger

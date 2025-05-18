@@ -3,6 +3,16 @@ import {comparePassword, hashPassword} from "../config/bycrypt";
 import jwt from "jsonwebtoken";
 import {JWT_SECRET} from "../config/env";
 import {NextFunction, Request, Response} from "express";
+
+// Extend Express Request interface to include 'user'
+declare global {
+    namespace Express {
+        interface Request {
+            user?: any;
+        }
+    }
+}
+
 import { sendEmail } from "../config/mailer";
 import z from "zod"
 
@@ -104,4 +114,18 @@ export const signIn = async (req: Request, res: Response, next: NextFunction) =>
         next(error)
     }
 
+}
+
+//get the current authenticated User
+export const me = (req:Request,res:Response,next:NextFunction)=>{
+    try{
+
+        res.status(200).json({
+            success:true,
+            message:"user data retrieve successfully",
+            data: req.user
+        }); 
+    }catch(err:any){
+        next(err);
+    }
 }
