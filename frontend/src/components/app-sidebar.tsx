@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
+import { Link } from "react-router-dom";
 
 //menu items
 const AdminItems = [
@@ -50,16 +51,15 @@ export function AppSidebar() {
     return (
         <Sidebar>
             <SidebarContent className="justify-between">
-                 <span className="mr-4">Welcome, {user?.username} </span>
                 <SidebarGroup >
+                <span className="mr-4">Welcome, {user?.username} </span>
                     <SidebarGroupLabel>Car Parking Management</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                           
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}   >
                                     <SidebarMenuButton asChild onClick={() => handleItemClick(item.title)} isActive={activeButton === item.title}>
-                                        <a href={item.url}
+                                        <Link to={item.url}
                                             className={cn(
                                                 BASE_STYLES,
                                                 HOVER_STYLES,
@@ -69,7 +69,7 @@ export function AppSidebar() {
                                         >
                                             <item.icon />
                                             <span>{item.title}</span>
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}

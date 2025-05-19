@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import {Route, Routes, Navigate } from "react-router-dom";
 import { Login } from "@/pages/Login.tsx";
 import { Register } from "@/pages/Register.tsx";
 import { PageNotFound } from "@/pages/Page-not-found.tsx";
@@ -7,7 +7,7 @@ import VehicleManagementPage from "./components/AdminPages/vehicleManagement/Veh
 import DashboardLayout from "./components/Layouts/DashboardLayout";
 import { AddNewSessionPage } from "./components/AdminPages/parkingSession/AddNewSessionPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { useAuth, AuthProvider } from "./context/AuthContext";
+import { useAuth } from "./context/AuthContext";
 import type React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import UserPages from "./components/UserPages/UserPages";
@@ -21,49 +21,51 @@ const queryClient = new QueryClient({
   },
 })
 
+const ProtectedRoute = ({ children, requireAdmin = false }: { children: React.ReactNode, requireAdmin: boolean }) => {
+  const { isAuthenticated, isAdmin, isLoading } = useAuth();
+  console.log("protect route", isAuthenticated, isAdmin, isLoading)
+  
+  //waiting for authentication
+  // if (isLoading) {
+  //   return <></>
+  // }
+
+  if (!isAuthenticated && isLoading==false) {
+    return <Navigate to="/login" />;
+  }
+
+  if (requireAdmin && !isAdmin) {
+    return <Navigate to="/dashboard/vehicle-management" />;
+  }
+
+  return children;
+};
+// Admin-only route component
+const AdminRoute = ({ children }: { children: React.ReactNode }) => {
+  return <ProtectedRoute requireAdmin={true}>{children}</ProtectedRoute>;
+};
 function App() {
-
-  const ProtectedRoute = ({ children, requireAdmin = false }: { children: React.ReactNode, requireAdmin: boolean }) => {
-    const { isAuthenticated, isAdmin } = useAuth();
-
-    if (!isAuthenticated) {
-      return <Navigate to="/login" />;
-    }
-
-    if (requireAdmin && !isAdmin) {
-      return <Navigate to="/dashboard/vehicle-management" />;
-    }
-    
-    return children;
-  };
-
-  // Admin-only route component
-  const AdminRoute = ({ children }: { children: React.ReactNode }) => {
-    return <ProtectedRoute requireAdmin={true}>{children}</ProtectedRoute>;
-  };
-
   return (
 
 
     <div>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <AuthProvider>
-            <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Navigate to="/login" replace />} />
-              <Route path="/dashboard" element={<ProtectedRoute requireAdmin={false} ><DashboardLayout /></ProtectedRoute>}>
-                <Route path="parking-sessions" element={<AdminRoute><ParkingSessionPage /></AdminRoute>} />
-                <Route path="parking-sessions/add-session" element={<AdminRoute><AddNewSessionPage /></AdminRoute>} />
-                <Route path="admin-vehicle-management" element={<AdminRoute><VehicleManagementPage /></AdminRoute> } />
-                <Route path="vehicle-management" element={<UserPages/>}/>
-              </Route>
-              <Route path="*" element={<PageNotFound />} />
-            </Routes>
-          </AuthProvider>
-          <Toaster/>
-        </BrowserRouter>
+
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/dashboard" element={<ProtectedRoute requireAdmin={false} ><DashboardLayout /></ProtectedRoute>}>
+            <Route path="parking-sessions" element={<AdminRoute><ParkingSessionPage /></AdminRoute>} />
+            <Route path="parking-sessions/add-session" element={<AdminRoute><AddNewSessionPage /></AdminRoute>} />
+            <Route path="admin-vehicle-management" element={<AdminRoute><VehicleManagementPage /></AdminRoute>} />
+            <Route path="vehicle-management" element={<UserPages />} />
+          </Route>
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+
+        <Toaster />
+
       </QueryClientProvider>
     </div>
   )

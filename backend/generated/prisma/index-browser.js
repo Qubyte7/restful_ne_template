@@ -137,7 +137,7 @@ exports.Prisma.Vehicle_detailsScalarFieldEnum = {
 
 exports.Prisma.ParkingSlotScalarFieldEnum = {
   id: 'id',
-  slotNumber: 'slotNumber',
+  slot_number: 'slot_number',
   status: 'status'
 };
 
@@ -160,6 +160,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',

@@ -44,9 +44,9 @@ model Client {
 model Vehicle_details {
   id             Int              @id @default(autoincrement())
   client         Client           @relation(fields: [client_Id], references: [id])
-  client_Id      Int              @map("owner_Id")
+  client_Id      Int              @map("owner_id")
   vehicle_plate  String           @unique
-  vehicle_type   String           @map("vehicle_Type")
+  vehicle_type   String           @map("vehicle_type")
   ParkingSession ParkingSession[]
 
   @@map("vehicle_details")
@@ -54,7 +54,7 @@ model Vehicle_details {
 
 model ParkingSlot {
   id              Int              @id @default(autoincrement())
-  slotNumber      Int
+  slot_number     Int
   status          SlotStatus
   parkingSessions ParkingSession[]
 
@@ -71,6 +71,8 @@ model ParkingSession {
   owner_email          String
   ower_name            String
   entry_time           DateTime
-  exit_time            DateTime
+  exit_time            DateTime?
   status               VehiclesessionStatus @map("vehicle_status")
+
+  @@map("parking_session")
 }

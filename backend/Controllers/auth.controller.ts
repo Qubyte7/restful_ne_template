@@ -98,7 +98,7 @@ export const signIn = async (req: Request, res: Response, next: NextFunction) =>
                     data: user,
                     token: token
                 })
-                await sendEmail({toEmail: email})
+                // await sendEmail({toEmail: email})
             } else {
                 res.status(403).json({
                     success: true,

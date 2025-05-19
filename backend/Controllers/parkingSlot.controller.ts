@@ -31,6 +31,7 @@ export const getAvailableParkingSlots = (req:Request,res:Response,next:NextFunct
             status:true,
             data:availableParkingSlots
         })
+        console.log(availableParkingSlots);
     }catch (e){
         next(e);
     }
@@ -88,7 +89,7 @@ export const addSlot = async (req:Request,res:Response,next:NextFunction) => {
         const {slotnumber} = req.body;
         const newSlot = await slotClient.create({
             data:{
-                slotNumber:slotnumber,
+                slot_number:slotnumber,
                 status:'FREE'
             }
         })

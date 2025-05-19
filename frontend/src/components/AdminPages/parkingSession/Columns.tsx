@@ -1,5 +1,7 @@
 import type { ColumnDef } from "@tanstack/react-table"
 import { MoreHorizontal } from "lucide-react"
+import { useDeleteParkingSession, useUpdateParkingSession } from '@/hooks/useParkingSession';
+import { toast } from '@/hooks/use-toast';
 
 import { Button } from "@/components/ui/button"
 import {
@@ -17,6 +19,83 @@ import { type ParkingSession } from "@/components/schemas/schema"
 
 import { cn } from "@/lib/utils"
 import type { VehichleSessionstatus } from "@/components/schemas/schema"
+
+const ActionCell = ({ session }: { session: ParkingSession }) => {
+  const deleteSession = useDeleteParkingSession();
+  const updateSession = useUpdateParkingSession();
+
+  const handleDelete = async (id: number) => {
+    try {
+      await deleteSession.mutateAsync(id);
+      toast({
+        title: "Success",
+        description: "Parking session deleted successfully",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error(error);
+      
+      toast({
+        title: "Error",
+        description: "Failed to delete parking session",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleCheckout = async (id: number) => {
+    try {
+      await updateSession.mutateAsync({
+        id,
+        data: {
+          exit_time: new Date().toISOString(),
+          status: 'OUT'
+        }
+      });
+      toast({
+        title: "Success",
+        description: "Car checked out successfully",
+        variant: "default",
+      });
+    } catch (error) {
+      console.error(error);
+      
+      toast({
+        title: "Error",
+        description: "Failed to checkout car",
+        variant: "destructive",
+      });
+    }
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="h-8 w-8 p-0">
+          <span className="sr-only">Action menu</span>
+          <MoreHorizontal className="h-4 w-4" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        <DropdownMenuItem
+          onClick={() => handleDelete(session.id)}
+          className="text-red-400"
+        >
+          Delete Session
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        {session.status === "PARKING" && (
+          <DropdownMenuItem onClick={() => handleCheckout(session.id)}>
+            Car Checkout
+          </DropdownMenuItem>
+        )}
+        <DropdownMenuSeparator />
+        {session.status == "PARKING" ? (<DropdownMenuItem>Update session</DropdownMenuItem>) : null}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
 
 export const Columns: ColumnDef<ParkingSession>[] = [
   {
@@ -79,34 +158,14 @@ export const Columns: ColumnDef<ParkingSession>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const session = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(session.parkingSlot)}
-              className="text-red-400"
-            >
-              Delete Session
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            {session.status == "PARKING" ? (<DropdownMenuItem>Update session</DropdownMenuItem>) : null}
-            <DropdownMenuSeparator />
-            {session.status == "PARKING" ? (<DropdownMenuItem>Car Checkout</DropdownMenuItem>) : null}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
+      const session =  row.original;
+      return <ActionCell session={session} />;
+    }
   }
 ]
+
+
+
 
 // vehichle session status badge Color specification
 

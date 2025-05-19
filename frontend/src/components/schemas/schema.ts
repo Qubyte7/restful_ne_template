@@ -22,7 +22,7 @@ export const parkingSessionSchema = z.object({
     parkingSlot:z.string(),
     entryTime:z.string(),
     exitTime:z.string(),
-    status:z.enum(["OUT","PARKING"]),
+    status:z.string(),
     amount:z.number()
 })
 

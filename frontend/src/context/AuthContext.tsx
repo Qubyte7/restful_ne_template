@@ -21,6 +21,7 @@ interface AuthContextType {
     login: (email: string, password: string) => Promise<void>;
     register: (name: string, email: string, password: string, role: 'USER' | 'ADMIN') => Promise<void>;
     logout: () => void;
+    isLoading: boolean
 }
 
 
@@ -42,14 +43,16 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [user, setUser] = useState<User | null>(null);
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const navigate = useNavigate();
 
 
     // Check if token is valid and set user on mount
     useEffect(() => {
         const validateToken = async () => {
-            if (token) {
+            if (token && !user) {
                 try {
+                    setIsLoading(true)
                     // // Decode the token to get user info
                     // interface DecodedToken {
                     //     username: string;
@@ -58,9 +61,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                     //     exp: number;
                     // }
                     interface DecodedToken {
-                    userId: string;
-                    exp: number;
-                    iat: number;
+                        userId: string;
+                        exp: number;
+                        iat: number;
                     }
                     const decoded: DecodedToken = jwtDecode(token);
 
@@ -80,7 +83,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                     localStorage.removeItem('token');
                     setToken(null);
                     setUser(null);
+                } finally {
+                    setIsLoading(false)
                 }
+            } else {
+                setIsLoading(false)
             }
         };
         validateToken();
@@ -137,10 +144,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
 
 
-    const isAuthenticated = !!token && !!user;
+    const isAuthenticated = !!token && !!user && !isLoading;
     const isAdmin = isAuthenticated && user?.role === 'ADMIN';
 
-
+    // console.log(isAdmin, isAuthenticated, token, user, isLoading)
+    
     return (
         <AuthContext.Provider
             value={{
@@ -151,6 +159,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 login,
                 register,
                 logout,
+                isLoading
             }}
         >
             {children}

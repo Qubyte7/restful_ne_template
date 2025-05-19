@@ -3543,29 +3543,29 @@ export namespace Prisma {
 
   export type ParkingSlotAvgAggregateOutputType = {
     id: number | null
-    slotNumber: number | null
+    slot_number: number | null
   }
 
   export type ParkingSlotSumAggregateOutputType = {
     id: number | null
-    slotNumber: number | null
+    slot_number: number | null
   }
 
   export type ParkingSlotMinAggregateOutputType = {
     id: number | null
-    slotNumber: number | null
+    slot_number: number | null
     status: $Enums.SlotStatus | null
   }
 
   export type ParkingSlotMaxAggregateOutputType = {
     id: number | null
-    slotNumber: number | null
+    slot_number: number | null
     status: $Enums.SlotStatus | null
   }
 
   export type ParkingSlotCountAggregateOutputType = {
     id: number
-    slotNumber: number
+    slot_number: number
     status: number
     _all: number
   }
@@ -3573,29 +3573,29 @@ export namespace Prisma {
 
   export type ParkingSlotAvgAggregateInputType = {
     id?: true
-    slotNumber?: true
+    slot_number?: true
   }
 
   export type ParkingSlotSumAggregateInputType = {
     id?: true
-    slotNumber?: true
+    slot_number?: true
   }
 
   export type ParkingSlotMinAggregateInputType = {
     id?: true
-    slotNumber?: true
+    slot_number?: true
     status?: true
   }
 
   export type ParkingSlotMaxAggregateInputType = {
     id?: true
-    slotNumber?: true
+    slot_number?: true
     status?: true
   }
 
   export type ParkingSlotCountAggregateInputType = {
     id?: true
-    slotNumber?: true
+    slot_number?: true
     status?: true
     _all?: true
   }
@@ -3688,7 +3688,7 @@ export namespace Prisma {
 
   export type ParkingSlotGroupByOutputType = {
     id: number
-    slotNumber: number
+    slot_number: number
     status: $Enums.SlotStatus
     _count: ParkingSlotCountAggregateOutputType | null
     _avg: ParkingSlotAvgAggregateOutputType | null
@@ -3713,7 +3713,7 @@ export namespace Prisma {
 
   export type ParkingSlotSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    slotNumber?: boolean
+    slot_number?: boolean
     status?: boolean
     parkingSessions?: boolean | ParkingSlot$parkingSessionsArgs<ExtArgs>
     _count?: boolean | ParkingSlotCountOutputTypeDefaultArgs<ExtArgs>
@@ -3721,23 +3721,23 @@ export namespace Prisma {
 
   export type ParkingSlotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    slotNumber?: boolean
+    slot_number?: boolean
     status?: boolean
   }, ExtArgs["result"]["parkingSlot"]>
 
   export type ParkingSlotSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    slotNumber?: boolean
+    slot_number?: boolean
     status?: boolean
   }, ExtArgs["result"]["parkingSlot"]>
 
   export type ParkingSlotSelectScalar = {
     id?: boolean
-    slotNumber?: boolean
+    slot_number?: boolean
     status?: boolean
   }
 
-  export type ParkingSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slotNumber" | "status", ExtArgs["result"]["parkingSlot"]>
+  export type ParkingSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slot_number" | "status", ExtArgs["result"]["parkingSlot"]>
   export type ParkingSlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     parkingSessions?: boolean | ParkingSlot$parkingSessionsArgs<ExtArgs>
     _count?: boolean | ParkingSlotCountOutputTypeDefaultArgs<ExtArgs>
@@ -3752,7 +3752,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      slotNumber: number
+      slot_number: number
       status: $Enums.SlotStatus
     }, ExtArgs["result"]["parkingSlot"]>
     composites: {}
@@ -4179,7 +4179,7 @@ export namespace Prisma {
    */
   interface ParkingSlotFieldRefs {
     readonly id: FieldRef<"ParkingSlot", 'Int'>
-    readonly slotNumber: FieldRef<"ParkingSlot", 'Int'>
+    readonly slot_number: FieldRef<"ParkingSlot", 'Int'>
     readonly status: FieldRef<"ParkingSlot", 'SlotStatus'>
   }
     
@@ -4805,7 +4805,7 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date
-    exit_time: Date
+    exit_time: Date | null
     status: $Enums.VehiclesessionStatus
     _count: ParkingSessionCountAggregateOutputType | null
     _avg: ParkingSessionAvgAggregateOutputType | null
@@ -4912,7 +4912,7 @@ export namespace Prisma {
       owner_email: string
       ower_name: string
       entry_time: Date
-      exit_time: Date
+      exit_time: Date | null
       status: $Enums.VehiclesessionStatus
     }, ExtArgs["result"]["parkingSession"]>
     composites: {}
@@ -5799,7 +5799,7 @@ export namespace Prisma {
 
   export const ParkingSlotScalarFieldEnum: {
     id: 'id',
-    slotNumber: 'slotNumber',
+    slot_number: 'slot_number',
     status: 'status'
   };
 
@@ -5834,6 +5834,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -6062,14 +6070,14 @@ export namespace Prisma {
     OR?: ParkingSlotWhereInput[]
     NOT?: ParkingSlotWhereInput | ParkingSlotWhereInput[]
     id?: IntFilter<"ParkingSlot"> | number
-    slotNumber?: IntFilter<"ParkingSlot"> | number
+    slot_number?: IntFilter<"ParkingSlot"> | number
     status?: EnumSlotStatusFilter<"ParkingSlot"> | $Enums.SlotStatus
     parkingSessions?: ParkingSessionListRelationFilter
   }
 
   export type ParkingSlotOrderByWithRelationInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
     status?: SortOrder
     parkingSessions?: ParkingSessionOrderByRelationAggregateInput
   }
@@ -6079,14 +6087,14 @@ export namespace Prisma {
     AND?: ParkingSlotWhereInput | ParkingSlotWhereInput[]
     OR?: ParkingSlotWhereInput[]
     NOT?: ParkingSlotWhereInput | ParkingSlotWhereInput[]
-    slotNumber?: IntFilter<"ParkingSlot"> | number
+    slot_number?: IntFilter<"ParkingSlot"> | number
     status?: EnumSlotStatusFilter<"ParkingSlot"> | $Enums.SlotStatus
     parkingSessions?: ParkingSessionListRelationFilter
   }, "id">
 
   export type ParkingSlotOrderByWithAggregationInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
     status?: SortOrder
     _count?: ParkingSlotCountOrderByAggregateInput
     _avg?: ParkingSlotAvgOrderByAggregateInput
@@ -6100,7 +6108,7 @@ export namespace Prisma {
     OR?: ParkingSlotScalarWhereWithAggregatesInput[]
     NOT?: ParkingSlotScalarWhereWithAggregatesInput | ParkingSlotScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"ParkingSlot"> | number
-    slotNumber?: IntWithAggregatesFilter<"ParkingSlot"> | number
+    slot_number?: IntWithAggregatesFilter<"ParkingSlot"> | number
     status?: EnumSlotStatusWithAggregatesFilter<"ParkingSlot"> | $Enums.SlotStatus
   }
 
@@ -6114,7 +6122,7 @@ export namespace Prisma {
     owner_email?: StringFilter<"ParkingSession"> | string
     ower_name?: StringFilter<"ParkingSession"> | string
     entry_time?: DateTimeFilter<"ParkingSession"> | Date | string
-    exit_time?: DateTimeFilter<"ParkingSession"> | Date | string
+    exit_time?: DateTimeNullableFilter<"ParkingSession"> | Date | string | null
     status?: EnumVehiclesessionStatusFilter<"ParkingSession"> | $Enums.VehiclesessionStatus
     vehichle?: XOR<Vehicle_detailsScalarRelationFilter, Vehicle_detailsWhereInput>
     parking_slot?: XOR<ParkingSlotScalarRelationFilter, ParkingSlotWhereInput>
@@ -6128,7 +6136,7 @@ export namespace Prisma {
     owner_email?: SortOrder
     ower_name?: SortOrder
     entry_time?: SortOrder
-    exit_time?: SortOrder
+    exit_time?: SortOrderInput | SortOrder
     status?: SortOrder
     vehichle?: Vehicle_detailsOrderByWithRelationInput
     parking_slot?: ParkingSlotOrderByWithRelationInput
@@ -6145,7 +6153,7 @@ export namespace Prisma {
     owner_email?: StringFilter<"ParkingSession"> | string
     ower_name?: StringFilter<"ParkingSession"> | string
     entry_time?: DateTimeFilter<"ParkingSession"> | Date | string
-    exit_time?: DateTimeFilter<"ParkingSession"> | Date | string
+    exit_time?: DateTimeNullableFilter<"ParkingSession"> | Date | string | null
     status?: EnumVehiclesessionStatusFilter<"ParkingSession"> | $Enums.VehiclesessionStatus
     vehichle?: XOR<Vehicle_detailsScalarRelationFilter, Vehicle_detailsWhereInput>
     parking_slot?: XOR<ParkingSlotScalarRelationFilter, ParkingSlotWhereInput>
@@ -6159,7 +6167,7 @@ export namespace Prisma {
     owner_email?: SortOrder
     ower_name?: SortOrder
     entry_time?: SortOrder
-    exit_time?: SortOrder
+    exit_time?: SortOrderInput | SortOrder
     status?: SortOrder
     _count?: ParkingSessionCountOrderByAggregateInput
     _avg?: ParkingSessionAvgOrderByAggregateInput
@@ -6178,7 +6186,7 @@ export namespace Prisma {
     owner_email?: StringWithAggregatesFilter<"ParkingSession"> | string
     ower_name?: StringWithAggregatesFilter<"ParkingSession"> | string
     entry_time?: DateTimeWithAggregatesFilter<"ParkingSession"> | Date | string
-    exit_time?: DateTimeWithAggregatesFilter<"ParkingSession"> | Date | string
+    exit_time?: DateTimeNullableWithAggregatesFilter<"ParkingSession"> | Date | string | null
     status?: EnumVehiclesessionStatusWithAggregatesFilter<"ParkingSession"> | $Enums.VehiclesessionStatus
   }
 
@@ -6293,52 +6301,52 @@ export namespace Prisma {
   }
 
   export type ParkingSlotCreateInput = {
-    slotNumber: number
+    slot_number: number
     status: $Enums.SlotStatus
     parkingSessions?: ParkingSessionCreateNestedManyWithoutParking_slotInput
   }
 
   export type ParkingSlotUncheckedCreateInput = {
     id?: number
-    slotNumber: number
+    slot_number: number
     status: $Enums.SlotStatus
     parkingSessions?: ParkingSessionUncheckedCreateNestedManyWithoutParking_slotInput
   }
 
   export type ParkingSlotUpdateInput = {
-    slotNumber?: IntFieldUpdateOperationsInput | number
+    slot_number?: IntFieldUpdateOperationsInput | number
     status?: EnumSlotStatusFieldUpdateOperationsInput | $Enums.SlotStatus
     parkingSessions?: ParkingSessionUpdateManyWithoutParking_slotNestedInput
   }
 
   export type ParkingSlotUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    slotNumber?: IntFieldUpdateOperationsInput | number
+    slot_number?: IntFieldUpdateOperationsInput | number
     status?: EnumSlotStatusFieldUpdateOperationsInput | $Enums.SlotStatus
     parkingSessions?: ParkingSessionUncheckedUpdateManyWithoutParking_slotNestedInput
   }
 
   export type ParkingSlotCreateManyInput = {
     id?: number
-    slotNumber: number
+    slot_number: number
     status: $Enums.SlotStatus
   }
 
   export type ParkingSlotUpdateManyMutationInput = {
-    slotNumber?: IntFieldUpdateOperationsInput | number
+    slot_number?: IntFieldUpdateOperationsInput | number
     status?: EnumSlotStatusFieldUpdateOperationsInput | $Enums.SlotStatus
   }
 
   export type ParkingSlotUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    slotNumber?: IntFieldUpdateOperationsInput | number
+    slot_number?: IntFieldUpdateOperationsInput | number
     status?: EnumSlotStatusFieldUpdateOperationsInput | $Enums.SlotStatus
   }
 
   export type ParkingSessionCreateInput = {
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
     vehichle: Vehicle_detailsCreateNestedOneWithoutParkingSessionInput
     parking_slot: ParkingSlotCreateNestedOneWithoutParkingSessionsInput
@@ -6352,14 +6360,14 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
   export type ParkingSessionUpdateInput = {
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
     vehichle?: Vehicle_detailsUpdateOneRequiredWithoutParkingSessionNestedInput
     parking_slot?: ParkingSlotUpdateOneRequiredWithoutParkingSessionsNestedInput
@@ -6373,7 +6381,7 @@ export namespace Prisma {
     owner_email?: StringFieldUpdateOperationsInput | string
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -6384,14 +6392,14 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
   export type ParkingSessionUpdateManyMutationInput = {
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -6402,7 +6410,7 @@ export namespace Prisma {
     owner_email?: StringFieldUpdateOperationsInput | string
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -6580,30 +6588,30 @@ export namespace Prisma {
 
   export type ParkingSlotCountOrderByAggregateInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
     status?: SortOrder
   }
 
   export type ParkingSlotAvgOrderByAggregateInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
   }
 
   export type ParkingSlotMaxOrderByAggregateInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
     status?: SortOrder
   }
 
   export type ParkingSlotMinOrderByAggregateInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
     status?: SortOrder
   }
 
   export type ParkingSlotSumOrderByAggregateInput = {
     id?: SortOrder
-    slotNumber?: SortOrder
+    slot_number?: SortOrder
   }
 
   export type EnumSlotStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -6627,6 +6635,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type EnumVehiclesessionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.VehiclesessionStatus | EnumVehiclesessionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.VehiclesessionStatus[] | ListEnumVehiclesessionStatusFieldRefInput<$PrismaModel>
@@ -6642,6 +6661,11 @@ export namespace Prisma {
   export type ParkingSlotScalarRelationFilter = {
     is?: ParkingSlotWhereInput
     isNot?: ParkingSlotWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ParkingSessionCountOrderByAggregateInput = {
@@ -6699,6 +6723,20 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumVehiclesessionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -6935,6 +6973,10 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type EnumVehiclesessionStatusFieldUpdateOperationsInput = {
     set?: $Enums.VehiclesessionStatus
   }
@@ -7077,6 +7119,17 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedEnumVehiclesessionStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.VehiclesessionStatus | EnumVehiclesessionStatusFieldRefInput<$PrismaModel>
     in?: $Enums.VehiclesessionStatus[] | ListEnumVehiclesessionStatusFieldRefInput<$PrismaModel>
@@ -7096,6 +7149,31 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
   export type NestedEnumVehiclesessionStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -7134,7 +7212,7 @@ export namespace Prisma {
   export type ParkingSessionCreateWithoutOwnerInput = {
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
     vehichle: Vehicle_detailsCreateNestedOneWithoutParkingSessionInput
     parking_slot: ParkingSlotCreateNestedOneWithoutParkingSessionsInput
@@ -7146,7 +7224,7 @@ export namespace Prisma {
     parking_slot_id: number
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
@@ -7212,7 +7290,7 @@ export namespace Prisma {
     owner_email?: StringFilter<"ParkingSession"> | string
     ower_name?: StringFilter<"ParkingSession"> | string
     entry_time?: DateTimeFilter<"ParkingSession"> | Date | string
-    exit_time?: DateTimeFilter<"ParkingSession"> | Date | string
+    exit_time?: DateTimeNullableFilter<"ParkingSession"> | Date | string | null
     status?: EnumVehiclesessionStatusFilter<"ParkingSession"> | $Enums.VehiclesessionStatus
   }
 
@@ -7241,7 +7319,7 @@ export namespace Prisma {
   export type ParkingSessionCreateWithoutVehichleInput = {
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
     parking_slot: ParkingSlotCreateNestedOneWithoutParkingSessionsInput
     owner: ClientCreateNestedOneWithoutParkingSessionInput
@@ -7253,7 +7331,7 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
@@ -7314,7 +7392,7 @@ export namespace Prisma {
   export type ParkingSessionCreateWithoutParking_slotInput = {
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
     vehichle: Vehicle_detailsCreateNestedOneWithoutParkingSessionInput
     owner: ClientCreateNestedOneWithoutParkingSessionInput
@@ -7326,7 +7404,7 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
@@ -7375,13 +7453,13 @@ export namespace Prisma {
   }
 
   export type ParkingSlotCreateWithoutParkingSessionsInput = {
-    slotNumber: number
+    slot_number: number
     status: $Enums.SlotStatus
   }
 
   export type ParkingSlotUncheckedCreateWithoutParkingSessionsInput = {
     id?: number
-    slotNumber: number
+    slot_number: number
     status: $Enums.SlotStatus
   }
 
@@ -7448,13 +7526,13 @@ export namespace Prisma {
   }
 
   export type ParkingSlotUpdateWithoutParkingSessionsInput = {
-    slotNumber?: IntFieldUpdateOperationsInput | number
+    slot_number?: IntFieldUpdateOperationsInput | number
     status?: EnumSlotStatusFieldUpdateOperationsInput | $Enums.SlotStatus
   }
 
   export type ParkingSlotUncheckedUpdateWithoutParkingSessionsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    slotNumber?: IntFieldUpdateOperationsInput | number
+    slot_number?: IntFieldUpdateOperationsInput | number
     status?: EnumSlotStatusFieldUpdateOperationsInput | $Enums.SlotStatus
   }
 
@@ -7498,7 +7576,7 @@ export namespace Prisma {
     parking_slot_id: number
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
@@ -7524,7 +7602,7 @@ export namespace Prisma {
   export type ParkingSessionUpdateWithoutOwnerInput = {
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
     vehichle?: Vehicle_detailsUpdateOneRequiredWithoutParkingSessionNestedInput
     parking_slot?: ParkingSlotUpdateOneRequiredWithoutParkingSessionsNestedInput
@@ -7536,7 +7614,7 @@ export namespace Prisma {
     parking_slot_id?: IntFieldUpdateOperationsInput | number
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -7546,7 +7624,7 @@ export namespace Prisma {
     parking_slot_id?: IntFieldUpdateOperationsInput | number
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -7556,14 +7634,14 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
   export type ParkingSessionUpdateWithoutVehichleInput = {
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
     parking_slot?: ParkingSlotUpdateOneRequiredWithoutParkingSessionsNestedInput
     owner?: ClientUpdateOneRequiredWithoutParkingSessionNestedInput
@@ -7575,7 +7653,7 @@ export namespace Prisma {
     owner_email?: StringFieldUpdateOperationsInput | string
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -7585,7 +7663,7 @@ export namespace Prisma {
     owner_email?: StringFieldUpdateOperationsInput | string
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -7595,14 +7673,14 @@ export namespace Prisma {
     owner_email: string
     ower_name: string
     entry_time: Date | string
-    exit_time: Date | string
+    exit_time?: Date | string | null
     status: $Enums.VehiclesessionStatus
   }
 
   export type ParkingSessionUpdateWithoutParking_slotInput = {
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
     vehichle?: Vehicle_detailsUpdateOneRequiredWithoutParkingSessionNestedInput
     owner?: ClientUpdateOneRequiredWithoutParkingSessionNestedInput
@@ -7614,7 +7692,7 @@ export namespace Prisma {
     owner_email?: StringFieldUpdateOperationsInput | string
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 
@@ -7624,7 +7702,7 @@ export namespace Prisma {
     owner_email?: StringFieldUpdateOperationsInput | string
     ower_name?: StringFieldUpdateOperationsInput | string
     entry_time?: DateTimeFieldUpdateOperationsInput | Date | string
-    exit_time?: DateTimeFieldUpdateOperationsInput | Date | string
+    exit_time?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     status?: EnumVehiclesessionStatusFieldUpdateOperationsInput | $Enums.VehiclesessionStatus
   }
 

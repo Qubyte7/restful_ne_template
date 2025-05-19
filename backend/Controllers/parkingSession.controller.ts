@@ -30,7 +30,7 @@ export const getAllSession = async (req: Request, res: Response, next: NextFunct
         res.status(200).json({
             success: true,
             message: "All sessions fetched successfully",
-            currentPage: page,
+            currentPage: page, 
             totalPages: totalPages,
             totalItems: totalItems,
             pageSize: limit,
@@ -38,7 +38,7 @@ export const getAllSession = async (req: Request, res: Response, next: NextFunct
             hasPreviousPage: hasPreviousPage,
             data: AllSessions
         })
-
+        return;
     } catch (e) {
         next(e);
     }
@@ -103,7 +103,6 @@ export const addParkingSession = async (req: Request, res: Response, next: NextF
                 entry_time: entry_time,
                 ower_name: driver_name,
                 owner_email: driver_email,
-                exit_time: '',
                 status: 'PARKING',
             }
         })
