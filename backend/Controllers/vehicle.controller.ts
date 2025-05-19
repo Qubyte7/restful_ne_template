@@ -65,7 +65,7 @@ export const getAllVehicles = async (req:Request,res:Response,next:NextFunction)
 
 export const getVehicleByPlate = async (req:Request,res:Response,next:NextFunction)=>{
     try {
-        const {vehicle_plate} = req.params;
+        const {vehicle_plate} = req.body;
 
         const vehicle =  await vehicleClient.findUnique({
             where: {

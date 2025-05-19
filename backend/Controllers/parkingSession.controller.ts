@@ -1,9 +1,14 @@
 import {NextFunction, Request, Response} from "express";
 import prisma from "../config/prismaClientConfig";
+import { prismaUser } from "./user.controller";
+import { slotClient } from "./parkingSlot.controller";
+import { vehicleClient } from "./vehicle.controller";
 
 const parkingSessionClient = prisma.parkingSession;
 const defaultPage = 1;
 const defaultLimit = 10;
+
+
 
 
 export const getAllSession = async (req: Request, res: Response, next: NextFunction) => {
@@ -98,8 +103,35 @@ export const addParkingSession = async (req: Request, res: Response, next: NextF
         const {vehicle_number_plate, driver_name, driver_email, parking_slot_id, entry_time} = req.body;
         
         //verifying whether the specified 
+        //verifying owner email
+                const client = await prismaUser.findUnique({where:{email:driver_email}})
         
-
+                if(!client){
+                    res.status(404).json({
+                        success:false,
+                        message:"driver does not exist !",
+                    })
+                }
+                
+                const slot = await slotClient.findUnique({where:{id:parking_slot_id}});
+                if(parking_slot_id){
+                            res.status(404).json({
+                                success:false,
+                                message:"slot not Found!",
+                            })
+                        }
+            console.log(slot)
+            
+                const vehicle =  await vehicleClient.findUnique({where: {vehicle_plate: vehicle_number_plate}});
+                if(!vehicle){
+                    res.status(404).json({
+                    success:false,
+                    message:"Vehicle not found"
+                })
+                }
+                
+        
+        if(client && slot && vehicle){
         const newParkingSession = await parkingSessionClient.create({
             data: {
                 vehicle_number_plate: vehicle_number_plate,
@@ -110,11 +142,13 @@ export const addParkingSession = async (req: Request, res: Response, next: NextF
                 status: 'PARKING',
             }
         })
+        
         res.status(200).json({
             success: true,
             message: "Parking session created successfully",
             data: newParkingSession
         })
+    }
 
     } catch (e) {
         next(e);

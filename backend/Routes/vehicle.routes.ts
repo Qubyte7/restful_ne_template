@@ -1,8 +1,10 @@
 import {Router} from "express";
-import {getAllVehicles, registerVehicle, updateVehicleWithClient, deleteVehicle} from "../Controllers/vehicle.controller";
+import {getAllVehicles, registerVehicle, updateVehicleWithClient, deleteVehicle, getVehicleByPlate} from "../Controllers/vehicle.controller";
 import {authorizeUser} from "../Middlewares/auth.middleware";
 
 const vehicleRouter = Router();
+
+vehicleRouter.get("/vehicle-number-plate",authorizeUser,getVehicleByPlate);
 
 /**
  * @swagger

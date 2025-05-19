@@ -4,10 +4,13 @@ import {
     deleteSlot,
     getAllParkingSlots,
     getAvailableParkingSlots,
+    getSlotById,
     updateSlotStatus
 } from "../Controllers/parkingSlot.controller";
 
 const parkingSlotRouter = Router();
+
+parkingSlotRouter.get("/:id",getSlotById);
 
 /**
  * @swagger

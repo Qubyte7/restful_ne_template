@@ -9,7 +9,7 @@ const slotStatusType = z.object({
 export type SlotStatusType = z.infer<typeof slotStatusType>;
 
 
-const slotClient = prisma.parkingSlot;
+export const slotClient = prisma.parkingSlot;
 
 export const getAllParkingSlots = (req:Request,res:Response,next:NextFunction) => {
     try{
@@ -96,5 +96,27 @@ export const addSlot = async (req:Request,res:Response,next:NextFunction) => {
         
     }catch (e){
         next(e);
+    }
+}
+
+export const getSlotById = async (req:Request,res:Response,next:NextFunction)=>{
+    try{
+        const {slot_id} = req.body;
+        const slot = await slotClient.findUnique({where:{id:slot_id}});
+        if(!slot_id){
+            res.status(404).json({
+                success:false,
+                message:"slot not Found!",
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            message:"slot found successfully !",
+            data:slot
+        })
+
+    }catch(error){
+        next(error);
     }
 }

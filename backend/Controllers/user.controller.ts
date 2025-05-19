@@ -14,7 +14,7 @@ const ClientSchema = z.object({
 export type ClientType = z.infer<typeof ClientSchema>;
 
 
-const prismaUser = prisma.client;
+export const prismaUser = prisma.client;
 
 export const getAllDriver = async (req: Request, res: Response, next: NextFunction) => {
 
