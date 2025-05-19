@@ -23,12 +23,20 @@ export const parkingSessionSchema = z.object({
     entryTime:z.string(),
     exitTime:z.string(),
     status:z.string(),
-    amount:z.number()
+
+})
+
+export const addParkingSessionSchema = z.object({
+    vehicle_plate:z.string(),
+    owner:z.string().min(2,{message:"Client must have at least Characters"}),
+    email:z.string().email({message:"valid email required"}),
+    parkingSlot:z.string(),
+    entryTime:z.string(),
 })
 
 export type ParkingSession =  z.infer<typeof parkingSessionSchema>;
 
-
+export type addParkingSession = z.infer<typeof addParkingSessionSchema>;
 
 
 export const vehichlestatusSchema = z.union([

@@ -1,10 +1,14 @@
 import {Router} from 'express'
-import {getAllDriver, getAllAdmin, getDriverByCarPlate, deleteClient, updateClient} from "../Controllers/user.controller";
+import {getAllDriver, getAllAdmin, getDriverByCarPlate, deleteClient, updateClient, getDriverByEmail} from "../Controllers/user.controller";
 import {authorizeUser} from "../Middlewares/auth.middleware";
 import adminAuth from "../Middlewares/adminAuth.middleware";
 
 
 const userRouter = Router();
+
+
+userRouter.get('/get-driver',authorizeUser,getDriverByEmail);
+
 
 /**
  * @swagger

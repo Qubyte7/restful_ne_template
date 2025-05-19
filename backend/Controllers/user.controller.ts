@@ -122,3 +122,29 @@ export const updateClient = async (req:Request,res:Response,next:NextFunction)=>
         next(e);
     }
 }
+
+
+export const getDriverByEmail = async(req:Request,res:Response,next:NextFunction)=>{
+    try{
+        const {email} = req.body;
+        const client = await prismaUser.findUnique({where:{
+            email:email
+        }})
+
+        if(!client){
+            res.status(404).json({
+                success:false,
+                message:"driver does not exist !",
+            })
+        }
+
+        res.status(200).json({
+            success:true,
+            message:"client found !",
+            data:client
+        })
+
+    }catch(e){
+        next(e);
+    }
+}

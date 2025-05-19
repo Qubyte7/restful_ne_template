@@ -97,6 +97,7 @@ const ActionCell = ({ session }: { session: ParkingSession }) => {
   );
 };
 
+
 export const Columns: ColumnDef<ParkingSession>[] = [
   {
     accessorKey: "owner",
@@ -141,19 +142,6 @@ export const Columns: ColumnDef<ParkingSession>[] = [
     enableSorting: false,
 
 
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount)
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
   },
   {
     id: "actions",

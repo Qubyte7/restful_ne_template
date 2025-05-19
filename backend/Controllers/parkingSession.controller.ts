@@ -96,6 +96,10 @@ export const getParkingSessionByStatus = async (req: Request, res: Response, nex
 export const addParkingSession = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const {vehicle_number_plate, driver_name, driver_email, parking_slot_id, entry_time} = req.body;
+        
+        //verifying whether the specified 
+        
+
         const newParkingSession = await parkingSessionClient.create({
             data: {
                 vehicle_number_plate: vehicle_number_plate,
